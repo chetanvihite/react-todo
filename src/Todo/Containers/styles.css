@@ -16,6 +16,7 @@
 .floatRight{
   float: right;
   padding-right: 48px;
+  padding-top: 24px;
 }
 
 .todoRow{
@@ -24,8 +25,31 @@
   border-bottom: 1px solid lightgray;
 }
 
+.headerRow{
+  padding: 16px;
+  font-weight: 600;  
+  display: flex;  
+  color: royalblue;
+}
+
 .header{
   padding: 24px;
   text-align: center;
   font-weight: 600;
+}
+
+.inputStyle{
+  font-size: 18px;
+  width: 90%;
+  height: 24px;
+}
+
+
+.buttonStyle{
+  font-size: 18px;
+  padding: 8px;
+}
+
+.noborderButton{
+  border: none;
 }
