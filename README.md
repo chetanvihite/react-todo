@@ -1,3 +1,14 @@
+react-todo-app
+
+A sample demonstration of testing react apps. 
+
+the purpose of this simple todo app to explain getting started with testing in react.
+this app is created from react-react-app package, which comes pre-configured to use jest as a test runner.
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

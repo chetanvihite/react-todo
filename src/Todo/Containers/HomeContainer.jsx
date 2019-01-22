@@ -2,7 +2,11 @@
 
 import React, { Component } from 'react';
 import removeIcon from '../../removeIcon.png';
-import styles from './styles.css'
+
+import Todo from '../Components/Todo';
+import HeaderRow from '../Components/Header';
+import ActionRow from '../Components/ActionRow';
+import {getNewTodo, removeTodo} from './todoHandler';
 
 class HomeContainer extends Component {
 	
@@ -46,23 +50,15 @@ class HomeContainer extends Component {
     console.log (this.state.todos);
   }
 	addNewTodo = (e) => {
-    let emptyTodo = {
-      id: Math.floor(Math.random() * 100 ),
-      whatToDo: '',
-      assignedTo: '',
-      status: false
-    }
+    let emptyTodo = getNewTodo();
     let currentTodos = this.state.todos;
     currentTodos.push(emptyTodo);
     this.setState ({todos: currentTodos});
   }
-  removeTodo = (e) => {
+  removeTodo = (itemTobeRemoved) => {
     let currentTodos = this.state.todos;
-    let index = currentTodos.findIndex( x => x.id === e.id);
-    if ( index !== -1) {//not found 
-      currentTodos.splice(index, 1);
-      this.setState({todos: currentTodos});
-    }
+    let remainingTodos = removeTodo(currentTodos, itemTobeRemoved);
+    this.setState ({todos: remainingTodos});
   }
 	render () {
     let todos = this.state.todos;
@@ -73,36 +69,21 @@ class HomeContainer extends Component {
           Welcome to my Todo App
         </div>
         <div>
-        <div className="headerRow">
-              <div className="itemStyle">What</div>
-              <div className="itemStyle">Who</div>
-              <div className="removeCellStyle">Complete?</div>
-              <div className="removeCellStyle"></div>
-            </div>
+          <HeaderRow />
         </div>
         {
           todos && todos.map(function(item, index){      
           return (
-            <div className="todoRow" key={index}>
-              <div className="itemStyle">
-                <input type="text" className="inputStyle" value={item.whatToDo}></input> 
-              </div>
-              <div className="itemStyle">
-                <input type="text" className="inputStyle" value={item.assignedTo}></input> 
-              </div>
-              <div className="removeCellStyle">{item.status ? 'Complete' : 'In Process'}</div>
-              <div className="removeCellStyle">
-                <button className="noborderButton" onClick={() => removeTodo(item)}>
-                  <img src={removeIcon} className="deleteIcon" alt="remove" />
-                </button>
-              </div>
-            </div>);
+            <Todo 
+              index={index}
+              item={item}
+              removeTodo={removeTodo}
+              removeIcon={removeIcon}
+            />
+           );
         })
-
         }
-        <div className="floatRight">
-          <button className="buttonStyle" onClick={this.addNewTodo} >Add New Todo</button>
-        </div>
+        <ActionRow addNewTodo={this.addNewTodo} addButtonText="Add New Todo" />
 			</div>
 		)
 	}
